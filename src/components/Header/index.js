@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import './style.css'
 
 function Header() {
  
@@ -11,9 +12,9 @@ function Header() {
         return state;
       });
     return (
-        <div>
-            {state.signIn.token&&<Link to="/post">my post</Link>}
-            <Link to="/">home</Link>
+        <div className='header'>
+            {state.signIn.token&&<Link className='nave1' to="/post">my post</Link>}
+            <Link className='nave2' to="/">home</Link>
             
         </div>
     )

@@ -1,0 +1,14 @@
+
+.header{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.nave1{
+   font-size: 30px;
+
+}
+.nave2{
+    font-size: 30px;
+
+ }

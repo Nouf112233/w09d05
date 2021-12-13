@@ -9,6 +9,7 @@ import {
 import { logout } from "./../../reducer/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import Header from "../Header";
 
 function Comments() {
     const dispatch = useDispatch();
@@ -99,6 +100,7 @@ function Comments() {
 
     return (
         <div>
+          <Header />
             <div>
                 <h5>{post.disc}</h5>
                 {console.log("post.disc",post.disc)}
