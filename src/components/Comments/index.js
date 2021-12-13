@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  getPosts,
-  addPost,
-  deletePost,
-  updatePost,
-} from "./../../reducer/post";
-import { logout } from "./../../reducer/login";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import Header from "../Header";
 
 function Comments() {
-    const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const [post,setPost]=useState([]);
   const [comment,setComment]=useState([]);
   const [commentName, setCommentName] = useState("");
