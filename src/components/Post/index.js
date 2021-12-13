@@ -9,6 +9,7 @@ import {
 import { logout } from "./../../reducer/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import Header from "../Header";
 
 function Post() {
   const dispatch = useDispatch();
@@ -110,6 +111,7 @@ function Post() {
 
   return (
     <div>
+      <Header />
       <input
         type="text"
         value={postadd}
@@ -126,8 +128,7 @@ function Post() {
           return (
             <div key={item._id}  onClick={()=>goComment(item._id)}>
               <h1>{item.disc}</h1>
-              <button onClick={() => deletepost(item._id, i)}>delete</button>
-              {/* <button>delete</button> */}
+              {(state.signIn.userId===item.user||state.signIn.role==="admin")&&<button onClick={() => deletepost(item._id, i)}>delete</button>}
               <input
                 type="text"
                 //   value={taskName}
@@ -135,8 +136,8 @@ function Post() {
                   setPostName(e.target.value);
                 }}
               />
-              <button onClick={() => updatepost(item._id, i)} >update</button>
-              {/* <button>update</button> */}
+              {state.signIn.userId===item.user&&<button onClick={() => updatepost(item._id, i)} >update</button>}
+             
             </div>
           );
         })}

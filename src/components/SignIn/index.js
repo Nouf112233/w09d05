@@ -20,11 +20,12 @@ function SignIn() {
         if(user.data.result.role=="61a732fa694d3b6362ba9e99")
     
         {
-             role="admin"
+             role="admin";
         }else{role="user";}
         const data={
             role:role,
-            token:user.data.token
+            token:user.data.token,
+            userId:user.data.result._id
 
         }
         dispatch(login(data));
