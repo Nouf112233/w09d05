@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import Register from "./components/Rejaster";
 import SignIn from "./components/SignIn";
 import Posts from "./reducer/post";
+import Comments from "./components/Comments";
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route exact path="/account" element={<Account />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/signin" element={<SignIn />} />
+        <Route exact path="/comments/:id" element={<Comments />} />
       </Routes>
     </>
    

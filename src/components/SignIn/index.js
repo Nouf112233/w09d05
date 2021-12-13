@@ -3,6 +3,7 @@ import {useNavigate,useParams} from 'react-router-dom'
 import {login} from "./../../reducer/login"
 import { useDispatch,useSelector } from 'react-redux';
 import axios from 'axios';
+// import { GoogleLogin } from "react-google-login";
 
 function SignIn() {
     const dispatch=useDispatch();
@@ -27,13 +28,40 @@ function SignIn() {
 
         }
         dispatch(login(data));
-        navigate(`/posts`);
+        navigate(`/`);
     }
+
+    // const responseSGoogle = async (responce) => {
+    //     const result = await axios.post(
+    //       `${process.env.REACT_APP_BASE_URL}/googlelogin`,
+    //       { idToken: responce.tokenId }
+    //     );
+    
+    //     const data = {
+    //       role: result.data.user.role,
+    //       token: result.data.token,
+         
+    //     };
+    //     dispatch(login(data));
+    //     navigate(`/home`);
+    
+    
+    //   };
+    //   const responseFGoogle = (res) => {
+    //     console.log(res);
+    //   };
     return (
         <div>
             <input placeholder="email/username" type="text" onChange={(e)=>setName(e.target.value)} required/><br/>
             <input placeholder="password" type="password" onChange={(e)=>setPassword(e.target.value)}required/><br/>
             <button onClick={signin}>signin</button>
+            {/* <GoogleLogin
+          clientId="1012491114950-5htc73u0e5d1f7shkqq8c852ponfa6jn.apps.googleusercontent.com" //dotenv -----
+          buttonText="Sign in with google"
+          onSuccess={responseSGoogle}
+          onFailure={responseFGoogle}
+          cookiePolicy={"single_host_origin"}
+        /> */}
             
         </div>
     )

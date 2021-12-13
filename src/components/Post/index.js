@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-// import {
-//   getPosts,
-//   addPost,
-//   deletePost,
-//   updatePost,
-// } from "./../../reducer/post";
+import {
+  getPosts,
+  addPost,
+  deletePost,
+  updatePost,
+} from "./../../reducer/post";
 import { logout } from "./../../reducer/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -26,96 +26,77 @@ function Post() {
     try {
       const userPosts = await axios.get(
         `${process.env.REACT_APP_BASIC_URL}/getpost`,
-        { headers: { Autorization: `Bearer ${state.signIn.token}` } }
+        { headers: {Authorization: `Bearer ${state.signIn.token}` } }
       );
       console.log("userPosts", userPosts);
+       const data = {
+            name: userPosts.data,
+          };
+          dispatch(getPosts(data));
     } catch (error) {
       console.log(error);
     }
   };
 
   const createPost = async () => {
-    if (postadd.length > 0) {
+    if (postadd) {
       const newPost = await axios.post(
         `${process.env.REACT_APP_BASIC_URL}/post`,
         { disc: postadd },
-        { headers: { Autorization: `Bearer ${state.signIn.token}` } }
+        { headers: { Authorization: `Bearer ${state.signIn.token}` } }
       );
-      console.log("newPost",newPost);
+      console.log("newPost",newPost.data);
+       const data = {
+         task: newPost.data,
+        };
+       dispatch(addPost(data));
+       setPostadd("");
     }
   };
 
-  //   const getposts = async () => {
-  //     try {
-  //       const allPost = await axios.get(
-  //         `${process.env.REACT_APP_BASIC_URL}/getpost`,
-  //         { headers: { Authorization: `Bearer ${state.signIn.token}` } }
-  //       );
-  //       console.log("posts", allPost.data);
 
-  //         // const data = {
-  //         //   name: allPost.data,
-  //         // };
-  //         // dispatch(getTasks(data));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
 
-  //   const createPost = async() => {
-  //     console.log("postadd", postadd);
-  //     if (postadd.length > 0) {
-  //         const newPost = await axios.post(
-  //         `${process.env.REACT_APP_BASIC_URL}/post`,
-  //         {  disc: postadd },
-  //         { headers: { Authorization: `Bearer ${state.signIn.token}` } }
-  //       );
-  //       console.log(" newPost.data", newPost.data)
-  //     //   const data = {
-  //     //     task: newPost.data,
-  //     //   };
-  //     //   dispatch(addTask(data));
-  //     }
+ 
 
-  //     setPostadd("");
+    const deletepost = async (_id, i) => {
 
-  //   };
+       try {
+          await axios.delete(`${process.env.REACT_APP_BASIC_URL}/post/${_id}`, {
+            headers: {
+              Authorization: `Bearer ${state.signIn.token}`,
+            },
+          });
 
-  //   const deletepost = async (taskId, i) => {
+           const data = {
+              index: i,
+            };
+           dispatch(deletePost(data));
+        } catch (error) {
+          console.log(error);
+        }
+    };
 
-  // //     try {
-  // //         await axios.delete(`${process.env.REACT_APP_BASIC_URL}/task/${taskId}`, {
-  // //           headers: {
-  // //             Authorization: `Bearer ${state.signIn.token}`,
-  // //           },
-  // //         });
+    const updatepost = async(_id, i) => {
+      if (postName.length > 0) {
+       const newpost=await axios.put(
+         `${process.env.REACT_APP_BASIC_URL}/post`,
+         {_id: _id, disc: postName },
+         { headers: { Authorization: `Bearer ${state.signIn.token}` } }
+       );
+       const data = {
+        newPost:newpost.data,
+         indx:i
+       };
+       dispatch(updatePost(data));
+      }
 
-  // //         const data = {
-  // //             index: i,
-  // //           };
-  // //           dispatch(deleteTask(data));
-  // //       } catch (error) {
-  // //         console.log(error);
-  // //       }
-  //   };
+      setPostName("");
 
-  //   const updatepost = async(_id, i) => {
-  // //     if (taskName.length > 0) {
-  // //       const newTask=await axios.put(
-  // //         `${process.env.REACT_APP_BASIC_URL}/task`,
-  // //         { taskId: _id, taskName: taskName },
-  // //         { headers: { Authorization: `Bearer ${state.signIn.token}` } }
-  // //       );
-  // //       const data = {
-  // //         newTask:newTask.data,
-  // //         indx:i
-  // //       };
-  // //       dispatch(updateTask(data));
-  // //     }
+    };
 
-  // //     setTaskname("");
-
-  //   };
+    const goComment=(_id)=>{
+      navigate(`/comments/${_id}`);
+    }
 
   const out = () => {
     dispatch(logout({ role: "", token: "" }));
@@ -137,16 +118,16 @@ function Post() {
         }}
       />
       <button  onClick={createPost}>add post</button>
-      {/* <button>add post</button> */}
+   
 
-      {state.posts.name.length &&
+      {state.posts.name&&state.posts.name.length &&
         state.posts.name.map((item, i) => {
           // console.log("item", item);
           return (
-            <div key={item._id}>
-              <h1>{item.name}</h1>
-              {/* <button onClick={() => deletepost(item._id, i)}>delete</button> */}
-              <button>delete</button>
+            <div key={item._id}  onClick={()=>goComment(item._id)}>
+              <h1>{item.disc}</h1>
+              <button onClick={() => deletepost(item._id, i)}>delete</button>
+              {/* <button>delete</button> */}
               <input
                 type="text"
                 //   value={taskName}
@@ -154,8 +135,8 @@ function Post() {
                   setPostName(e.target.value);
                 }}
               />
-              {/* <button onClick={() => updatepost(item._id, i)} >update</button> */}
-              <button>update</button>
+              <button onClick={() => updatepost(item._id, i)} >update</button>
+              {/* <button>update</button> */}
             </div>
           );
         })}
