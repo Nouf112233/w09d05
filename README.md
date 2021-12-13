@@ -48,3 +48,6 @@ As an admin, you can:
 * react-redux
 * react-router-dom
 * redux
+
+## Uml
+![socilmedia img](https://github.com/Nouf112233/w09d05/blob/main/socilmedia.png)
