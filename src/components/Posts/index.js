@@ -64,6 +64,7 @@ function Posts() {
         };
        dispatch(addPost(data));
        setPostadd("");
+       getallposts();
     }
   };
 
@@ -110,10 +111,7 @@ function Posts() {
     const goComment=(_id)=>{
       navigate(`/comments/${_id}`);
     }
-    const gomaypost=()=>{
-        navigate(`/post`);
-    }
-
+ 
   const out = () => {
     dispatch(logout({ role: "", token: "" }));
     // dispatch(add({name:[]}));

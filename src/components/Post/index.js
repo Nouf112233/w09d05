@@ -69,6 +69,7 @@ function Post() {
         };
        dispatch(addPost(data));
        setPostadd("");
+       getuserpost();
     }
   };
 
