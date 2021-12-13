@@ -11,6 +11,7 @@ import { logout } from "./../../reducer/login";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../Header";
+import './style.css'
 
 function Posts() {
   const [file, setFile] = useState(null);
@@ -80,11 +81,12 @@ function Posts() {
               Authorization: `Bearer ${state.signIn.token}`,
             },
           });
+          getallposts();
 
-           const data = {
-              index: i,
-            };
-           dispatch(deletePost(data));
+          //  const data = {
+          //     index: i,
+          //   };
+          //  dispatch(deletePost(data));
         } catch (error) {
           console.log(error);
         }
@@ -97,14 +99,15 @@ function Posts() {
          {_id: _id, disc: postName },
          { headers: { Authorization: `Bearer ${state.signIn.token}` } }
        );
-       const data = {
-        newPost:newpost.data,
-         indx:i
-       };
-       dispatch(updatePost(data));
+      //  const data = {
+      //   newPost:newpost.data,
+      //    indx:i
+      //  };
+      //  dispatch(updatePost(data));
       }
 
       setPostName("");
+      getallposts();
 
     };
 
@@ -112,59 +115,39 @@ function Posts() {
       navigate(`/comments/${_id}`);
     }
  
-  const out = () => {
-    dispatch(logout({ role: "", token: "" }));
-    // dispatch(add({name:[]}));
-    navigate(`/account`);
-  };
+  // const out = () => {
+  //   dispatch(logout({ role: "", token: "" }));
+  //   // dispatch(add({name:[]}));
+  //   navigate(`/account`);
+  // };
 
   useEffect(() => {
     getallposts();
   }, []);
 
   return (
-    <div>
+    <div >
         <Header />
-        
-        <input
-        type="file"
-        name="avatar"
-        accept="image/*"
-        onChange={(e) => {
-          setFile(e.target.files[0]);
-        }}
-      />
-      <input
-        type="post"
-        name="post"
-        placeholder="post"
-        onChange={(e) => setPostadd(e.target.value)}
-      />
-      <button onClick={() => handleUpload()}> add post </button>
-   
-
+        <div className="container">
+       
+       <div className="boxes"> 
       {allPost&&allPost.length &&
         allPost.map((item, i) => {
           // console.log("item", item);
           return (
-            <div key={item._id}  onClick={()=>goComment(item._id)}>
+            <div key={item._id}  onClick={()=>goComment(item._id)} className="box">
               <img src={item.image} alt="post imag" width="500" height="600"></img>
               <h1>{item.disc}</h1>
               <p>{item.time}</p>
-              {(state.signIn.userId===item.user||state.signIn.role==="admin")&&<button onClick={() => deletepost(item._id, i)}>delete</button>}
-              <input
-                type="text"
-                //   value={taskName}
-                onChange={(e) => {
-                  setPostName(e.target.value);
-                }}
-              />
-              {state.signIn.userId===item.user&&<button onClick={() => updatepost(item._id, i)} >update</button>}
+              {state.signIn.role==="admin"&&<button onClick={() => deletepost(item._id, i)}>delete</button>}
+              
              
             </div>
           );
         })}
-      <button onClick={out}>LogOut</button>
+        </div>
+        {/* <button onClick={out}>LogOut</button> */}
+      </div>
     </div>
   );
 }

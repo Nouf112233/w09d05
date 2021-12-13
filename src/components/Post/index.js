@@ -12,6 +12,7 @@ import { logout } from "./../../reducer/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../Header";
+import './style.css';
 
 function Post() {
   const [file, setFile] = useState(null);
@@ -117,11 +118,11 @@ function Post() {
       navigate(`/comments/${_id}`);
     }
 
-  const out = () => {
-    dispatch(logout({ role: "", token: "" }));
-    // dispatch(add({name:[]}));
-    navigate(`/account`);
-  };
+  // const out = () => {
+  //   dispatch(logout({ role: "", token: "" }));
+  //   // dispatch(add({name:[]}));
+  //   navigate(`/account`);
+  // };
 
   useEffect(() => {
     getuserpost();
@@ -130,10 +131,13 @@ function Post() {
   return (
     <div>
       <Header />
+      <div className="container">
+        <div className="add">
       <input
         type="file"
         name="avatar"
         accept="image/*"
+        className="input-image"
         onChange={(e) => {
           setFile(e.target.files[0]);
         }}
@@ -142,16 +146,17 @@ function Post() {
         type="post"
         name="post"
         placeholder="post"
+        className="input-post"
         onChange={(e) => setPostadd(e.target.value)}
       />
-      <button onClick={() => handleUpload()}> add post </button>
+      <button onClick={() => handleUpload()} className="button-add-post"> add post </button>
    
-
+      <div className="boxes">
       {state.posts.name&&state.posts.name.length &&
         state.posts.name.map((item, i) => {
           // console.log("item", item);
           return (
-            <div key={item._id}  onClick={()=>goComment(item._id)}>
+            <div key={item._id}  onClick={()=>goComment(item._id)} className="box">
               <img src={item.image} alt="post imag" width="500" height="600"></img>
               <h1>{item.disc}</h1>
               <p>{item.time}</p>
@@ -162,13 +167,17 @@ function Post() {
                 onChange={(e) => {
                   setPostName(e.target.value);
                 }}
+                
               />
               {state.signIn.userId===item.user&&<button onClick={() => updatepost(item._id, i)} >update</button>}
              
             </div>
           );
         })}
-      <button onClick={out}>LogOut</button>
+        </div>
+      {/* <button onClick={out}>LogOut</button> */}
+      </div>
+      </div>
     </div>
   );
 }

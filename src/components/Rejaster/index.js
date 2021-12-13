@@ -20,7 +20,7 @@ function Register() {
   };
 
   return (
-    <div>
+    <div className="contain">
         <input
         placeholder="username"
         type="text"
@@ -35,6 +35,7 @@ function Register() {
         required
       />
       <br />
+      <p>password must to contain at least 1 capital litter , small litter, symbole, and at least 6 characters</p>
       <input
         placeholder="password"
         type="password"

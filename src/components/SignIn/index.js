@@ -51,11 +51,16 @@ function SignIn() {
     //   const responseFGoogle = (res) => {
     //     console.log(res);
     //   };
+
+    const forgit=()=>{
+        navigate(`/forgit`);
+    }
     return (
-        <div>
+        <div className='contain'>
             <input placeholder="email/username" type="text" onChange={(e)=>setName(e.target.value)} required/><br/>
             <input placeholder="password" type="password" onChange={(e)=>setPassword(e.target.value)}required/><br/>
             <button onClick={signin}>signin</button>
+            <p onClick={forgit}>forgit password</p>
             {/* <GoogleLogin
           clientId="1012491114950-5htc73u0e5d1f7shkqq8c852ponfa6jn.apps.googleusercontent.com" //dotenv -----
           buttonText="Sign in with google"

@@ -2,6 +2,8 @@
 .header{
     display: flex;
     justify-content: space-evenly;
+    background-color: rgba(233, 150, 122, 0.568);
+    height: 50px
 
 }
 .nave1{

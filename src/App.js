@@ -8,6 +8,8 @@ import Register from "./components/Rejaster";
 import SignIn from "./components/SignIn";
 import Posts from "./components/Posts";
 import Comments from "./components/Comments";
+import Forgit from "./components/Forgit";
+
 
 function App() {
   const state = useSelector((state) => {
@@ -38,6 +40,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/comments/:id" element={<Comments />} />
+        <Route exact path="/forgit" element={<Forgit />} />
       </Routes>
     </>
   );

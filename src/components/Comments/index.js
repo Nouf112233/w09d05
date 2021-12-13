@@ -88,11 +88,11 @@ function Comments() {
 
   };
 
-  const out = () => {
-    dispatch(logout({ role: "", token: "" }));
-    // dispatch(add({name:[]}));
-    navigate(`/account`);
-  };
+  // const out = () => {
+  //   dispatch(logout({ role: "", token: "" }));
+  //   // dispatch(add({name:[]}));
+  //   navigate(`/account`);
+  // };
   useEffect(() => {
     getuserpost();
   }, []);
@@ -102,7 +102,10 @@ function Comments() {
         <div>
           <Header />
             <div>
-                <h5>{post.disc}</h5>
+            <img src={post.image} alt="post imag" width="500" height="600"></img>
+              <h1>{post.disc}</h1>
+              <p>{post.time}</p>
+                
                 {console.log("post.disc",post.disc)}
             </div>
             <input
@@ -131,7 +134,7 @@ function Comments() {
             </div>
           );
         })}
-         <button onClick={out}>LogOut</button>    
+         {/* <button onClick={out}>LogOut</button>     */}
                
          
             
